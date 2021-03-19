@@ -54,7 +54,9 @@ const NavBar = () => {
             <Button component={Link} to="/">
               Home
             </Button>
-            <Button>Destination</Button>
+            <Button component={Link} to="destination/1">
+              Destination
+            </Button>
             <Button>Blog</Button>
             <Button>Contact</Button>
             <Box ml={6}>
@@ -102,14 +104,24 @@ const NavBar = () => {
                   <ListItemText primary="Contact" />
                 </ListItem>
               </List>
-              <Button
-                component={NavLink}
-                to="/login"
-                color="primary"
-                variant="contained"
-              >
-                Login
-              </Button>
+              {currentUserInfo ? (
+                <Button
+                  onClick={handleLogOut}
+                  color="primary"
+                  variant="contained"
+                >
+                  Logout
+                </Button>
+              ) : (
+                <Button
+                  component={NavLink}
+                  to="/login"
+                  color="primary"
+                  variant="contained"
+                >
+                  Login
+                </Button>
+              )}
               <Button>{currentUserInfo?.displayName}</Button>
             </Drawer>
           </Hidden>

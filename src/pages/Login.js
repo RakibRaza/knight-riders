@@ -9,12 +9,13 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { NavLink, useHistory, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import ContinueWith from "../components/ContinueWith/ContinueWith";
 import NavBar from "../components/NavBar/NavBar";
 import { useAuthContext } from "../context/AuthContext";
+import { Alert } from "@material-ui/lab";
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
@@ -38,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 const Login = () => {
   const classes = useStyles();
-  const { logIn, setPath } = useAuthContext();
+  const { logIn } = useAuthContext();
   const location = useLocation();
   const history = useHistory();
   const [error, setError] = useState("");
@@ -46,15 +47,14 @@ const Login = () => {
   let { from } = location.state || { from: { pathname: "/" } };
   const onSubmit = async (data) => {
     try {
+      setError("");
       await logIn(data.email, data.password);
       history.replace(from);
     } catch (error) {
       setError("No user Found.");
     }
   };
-  useEffect(() => {
-    setPath(from);
-  }, [from]);
+
   return (
     <Container>
       <NavBar />
@@ -68,7 +68,11 @@ const Login = () => {
             >
               Login
             </Typography>
-
+            {error && (
+              <Alert variant="filled" severity="error">
+                {error}
+              </Alert>
+            )}
             <form onSubmit={handleSubmit(onSubmit)}>
               <TextField
                 autoComplete="off"
@@ -126,7 +130,7 @@ const Login = () => {
               </Typography>
             </form>
           </Paper>
-          <ContinueWith />
+          <ContinueWith from={from} setError={setError} />
         </Container>
       </Box>
     </Container>

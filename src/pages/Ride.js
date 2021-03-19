@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
+    borderRadius: theme.spacing(1),
   },
   seats: {
     display: "flex",
@@ -48,6 +49,18 @@ const useStyles = makeStyles((theme) => ({
       fontSize: "2rem",
       fontWeight: "bold",
     },
+    "& .MuiSvgIcon-root": {
+      fontSize: "2rem",
+    },
+  },
+  price: {
+    fontWeight: "bold",
+  },
+  seat: {
+    fontWeight: "bold",
+  },
+  type: {
+    fontWeight: "bold",
   },
 }));
 const Ride = () => {
@@ -66,8 +79,8 @@ const Ride = () => {
           <Box className={classes.form}>
             <Box mx={2}>
               <Stepper className={classes.stepper} orientation="vertical">
-                <Step>
-                  <StepLabel className={classes.lable}>{pickFrom}</StepLabel>
+                <Step className={classes.lable}>
+                  <StepLabel>{pickFrom}</StepLabel>
                 </Step>
                 <Step>
                   <StepLabel className={classes.lable}>{pickTo}</StepLabel>
@@ -89,12 +102,12 @@ const Ride = () => {
                     src={image}
                     alt={type}
                   />
-                  <Typography>{type}</Typography>
+                  <Typography className={classes.type}>{type}</Typography>
                   <Box className={classes.seats}>
                     <EventSeatIcon />
-                    <Typography>{seats}</Typography>
+                    <Typography className={classes.seat}>{seats}</Typography>
                   </Box>
-                  <Typography>${price}</Typography>
+                  <Typography className={classes.price}>${price}</Typography>
                 </Paper>
               );
             })}

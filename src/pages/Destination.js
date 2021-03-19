@@ -1,3 +1,4 @@
+import DateFnsUtils from "@date-io/date-fns";
 import {
   Box,
   Button,
@@ -8,9 +9,14 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
+import {
+  KeyboardDatePicker,
+  KeyboardTimePicker,
+  MuiPickersUtilsProvider,
+} from "@material-ui/pickers";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { NavLink, useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import GoogleMap from "../components/GoogleMap/GoogleMap";
 import NavBar from "../components/NavBar/NavBar";
 import { useAuthContext } from "../context/AuthContext";
@@ -28,17 +34,22 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: theme.spacing(1.5),
   },
   input: {
-    background: "#fff",
+    "& .MuiInputBase-input": {
+      background: "#fff",
+      fontWeight: "bold",
+    },
   },
 }));
 const Destination = () => {
   const classes = useStyles();
   const { id } = useParams();
-  const { register, handleSubmit } = useForm();
+  const history = useHistory();
+  const { register, handleSubmit, errors } = useForm();
   const { pickFrom, pickTo, setPickFrom, setPickTo } = useAuthContext();
   const onClick = (data) => {
     setPickFrom(data.from);
     setPickTo(data.to);
+    history.push(`/ride/${id}`);
   };
   return (
     <Container>
@@ -47,39 +58,70 @@ const Destination = () => {
       <Grid container spacing={3} className={classes.container}>
         <Grid item xs={12} md={5}>
           <Box className={classes.form}>
-            <form onClick={handleSubmit(onClick)}>
+            <form onSubmit={handleSubmit(onClick)}>
               <Box mb={2}>
                 <Typography>Pick From</Typography>
                 <TextField
-                  name="from"
                   className={classes.input}
+                  name="from"
                   defaultValue={pickFrom}
                   variant="outlined"
                   fullWidth
-                  inputRef={register}
+                  inputRef={register({
+                    required: "Pick From is required.",
+                  })}
+                  helperText={errors.from?.message}
+                  error={Boolean(errors.from)}
                 />
               </Box>
               <Box mb={2}>
                 <Typography>Pick To</Typography>
                 <TextField
+                  className={classes.input}
                   name="to"
                   defaultValue={pickTo}
-                  className={classes.input}
                   variant="outlined"
                   fullWidth
-                  inputRef={register}
+                  inputRef={register({
+                    required: "Pick To is required.",
+                  })}
+                  helperText={errors.to?.message}
+                  error={Boolean(errors.to)}
                 />
+              </Box>
+              <Typography>From</Typography>
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <Grid container spacing={4}>
+                  <Grid item xs={6}>
+                    <KeyboardDatePicker variant="inline" format="dd/MM" />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <KeyboardTimePicker variant="inline" />
+                  </Grid>
+                </Grid>
+              </MuiPickersUtilsProvider>
+              <Box mt={3}>
+                <Typography>To</Typography>
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                  <Grid container spacing={4}>
+                    <Grid item xs={6}>
+                      <KeyboardDatePicker variant="inline" format="dd/MM" />
+                    </Grid>
+                    <Grid item xs={6}>
+                      <KeyboardTimePicker variant="inline" />
+                    </Grid>
+                  </Grid>
+                </MuiPickersUtilsProvider>
               </Box>
               <Box mt={4}>
                 <Button
-                  component={NavLink}
-                  to={`/ride/${id}`}
                   type="submit"
                   color="primary"
                   variant="contained"
                   fullWidth
+                  size="large"
                 >
-                  Start Booking
+                  Search
                 </Button>
               </Box>
             </form>

@@ -15,7 +15,7 @@ const vehicleDetails = [
       "https://res.cloudinary.com/dzar0smsc/image/upload/v1616088502/Frame_g4xovy.png",
     seats: 2,
     type: "Bike",
-    price: 20,
+    price: 30,
   },
   {
     vehicleId: 1,
@@ -24,7 +24,7 @@ const vehicleDetails = [
       "https://res.cloudinary.com/dzar0smsc/image/upload/v1616088502/Frame_g4xovy.png",
     seats: 2,
     type: "Bike",
-    price: 20,
+    price: 45,
   },
   {
     vehicleId: 2,
@@ -40,25 +40,25 @@ const vehicleDetails = [
     id: 2,
     image:
       "https://res.cloudinary.com/dzar0smsc/image/upload/v1616088526/Frame-2_i5clrl.png",
-    seats: 4,
+    seats: 6,
     type: "Car",
-    price: 67,
+    price: 97,
   },
   {
     vehicleId: 2,
     id: 3,
     image:
       "https://res.cloudinary.com/dzar0smsc/image/upload/v1616088526/Frame-2_i5clrl.png",
-    seats: 4,
+    seats: 7,
     type: "Car",
-    price: 67,
+    price: 122,
   },
   {
     vehicleId: 3,
     id: 1,
     image:
       "https://res.cloudinary.com/dzar0smsc/image/upload/v1616088518/Frame-1_vmwydd.png",
-    seats: 45,
+    seats: 35,
     type: "Bus",
     price: 250,
   },
@@ -67,9 +67,9 @@ const vehicleDetails = [
     id: 2,
     image:
       "https://res.cloudinary.com/dzar0smsc/image/upload/v1616088518/Frame-1_vmwydd.png",
-    seats: 45,
+    seats: 40,
     type: "Bus",
-    price: 250,
+    price: 270,
   },
   {
     vehicleId: 3,
@@ -78,7 +78,7 @@ const vehicleDetails = [
       "https://res.cloudinary.com/dzar0smsc/image/upload/v1616088518/Frame-1_vmwydd.png",
     seats: 45,
     type: "Bus",
-    price: 250,
+    price: 290,
   },
   {
     vehicleId: 4,

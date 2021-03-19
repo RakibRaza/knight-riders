@@ -9,7 +9,7 @@ const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [pickFrom, setPickFrom] = useState("Mirpur 1");
   const [pickTo, setPickTo] = useState("Danmondi");
-  const [path, setPath] = useState("/");
+
   const signUp = (email, password) => {
     return auth.createUserWithEmailAndPassword(email, password);
   };
@@ -28,18 +28,10 @@ const AuthProvider = ({ children }) => {
   const logOut = () => {
     return auth.signOut();
   };
-  const resetPassword = (email) => {
-    return auth.sendPasswordResetEmail(email);
-  };
   const updateName = (name) => {
     return auth.currentUser.updateProfile({ displayName: name });
   };
-  const updateEmail = (email) => {
-    return auth.currentUser.updateEmail(email);
-  };
-  const updatePassword = (password) => {
-    return auth.currentUser.updatePassword(password);
-  };
+
   useEffect(() => {
     const unSubscribe = auth.onAuthStateChanged((user) => {
       setCurrentUserInfo(user);
@@ -47,15 +39,13 @@ const AuthProvider = ({ children }) => {
     });
     return unSubscribe;
   }, []);
+
   const value = {
-    signUp,
     currentUserInfo,
+    signUp,
     logIn,
     logOut,
-    resetPassword,
     updateName,
-    updateEmail,
-    updatePassword,
     googleSignIn,
     fbSignIn,
     githubSignIn,
@@ -63,8 +53,6 @@ const AuthProvider = ({ children }) => {
     setPickFrom,
     pickTo,
     setPickTo,
-    path,
-    setPath,
   };
   return (
     <AuthContext.Provider value={value}>

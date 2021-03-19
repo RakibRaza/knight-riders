@@ -7,6 +7,7 @@ import Signup from "./pages/Signup";
 import Destination from "./pages/Destination";
 import Ride from "./pages/Ride";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import Error from "./pages/Error";
 function App() {
   return (
     <ThemeProvider theme={theme}>
@@ -27,6 +28,9 @@ function App() {
           <PrivateRoute path="/ride/:id">
             <Ride />
           </PrivateRoute>
+          <Route path="*">
+            <Error />
+          </Route>
         </Switch>
         <CssBaseline />
       </Router>

@@ -7,16 +7,35 @@ import { useHistory } from "react-router";
 import { useAuthContext } from "../../context/AuthContext";
 import { useStyles } from "./ContinueWithStyle";
 
-const ContinueWith = () => {
-  const { googleSignIn, path } = useAuthContext();
+const ContinueWith = ({ from, setError }) => {
+  const { googleSignIn, fbSignIn, githubSignIn } = useAuthContext();
   const classes = useStyles();
   const history = useHistory();
   const handleGoogleSignIn = async () => {
     try {
+      setError("");
       await googleSignIn();
-      history.replace(path);
+      history.replace(from);
     } catch (error) {
-      console.log(error);
+      setError("User alredy exist.");
+    }
+  };
+  const handleFacebookSignIn = async () => {
+    try {
+      setError("");
+      await fbSignIn();
+      history.replace(from);
+    } catch (error) {
+      setError("User alredy exist.");
+    }
+  };
+  const handleGithubSignIn = async () => {
+    try {
+      setError("");
+      await githubSignIn();
+      history.replace(from);
+    } catch (error) {
+      setError("User alredy exist.");
     }
   };
   return (
@@ -24,7 +43,7 @@ const ContinueWith = () => {
       <h6 className={classes.divider}>
         <span>or</span>
       </h6>
-      <Box className={classes.continue}>
+      <Box onClick={handleFacebookSignIn} className={classes.continue}>
         <ImFacebook />
         <Typography>Continue with Facebook</Typography>
       </Box>
@@ -36,7 +55,11 @@ const ContinueWith = () => {
         <GrGoogle />
         <Typography>Continue with Google</Typography>
       </Box>
-      <Box style={{ background: "black" }} className={classes.continue}>
+      <Box
+        onClick={handleGithubSignIn}
+        style={{ background: "black" }}
+        className={classes.continue}
+      >
         <FaGithub />
         <Typography>Continue with Github</Typography>
       </Box>

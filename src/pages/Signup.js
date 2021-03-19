@@ -16,6 +16,7 @@ import { useForm } from "react-hook-form";
 import ContinueWith from "../components/ContinueWith/ContinueWith";
 import { useAuthContext } from "../context/AuthContext";
 import NavBar from "../components/NavBar/NavBar";
+import { Alert } from "@material-ui/lab";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,10 +47,12 @@ const Signup = () => {
   const [error, setError] = useState("");
   const onSubmit = async (data) => {
     try {
+      setError("");
       await signUp(data.email, data.password);
       await updateName(data.firstName);
+      history.replace("/");
     } catch (error) {
-      setError("Faild to create account.");
+      setError("User alredy exist.");
     }
   };
   return (
@@ -65,7 +68,11 @@ const Signup = () => {
             >
               Create an account
             </Typography>
-
+            {error && (
+              <Alert variant="filled" severity="error">
+                {error}
+              </Alert>
+            )}
             <form onSubmit={handleSubmit(onSubmit)}>
               <TextField
                 autoComplete="off"
@@ -161,7 +168,7 @@ const Signup = () => {
               </Typography>
             </form>
           </Paper>
-          <ContinueWith />
+          <ContinueWith from={"/"} setError={setError} />
         </Container>
       </Box>
     </Container>
