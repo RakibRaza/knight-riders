@@ -8,6 +8,15 @@
 
 ## Website Feature
 
+#### `Firebase Authentication`
+
+#### `SignIn Method`
+
+1. Email & Password
+2. Google
+3. Facebook
+4. Github
+
 #### `Home Page`
 
 1. Vehicles Card
