@@ -7,7 +7,9 @@ const AuthContext = React.createContext();
 const AuthProvider = ({ children }) => {
   const [currentUserInfo, setCurrentUserInfo] = useState();
   const [loading, setLoading] = useState(true);
-
+  const [pickFrom, setPickFrom] = useState("Mirpur 1");
+  const [pickTo, setPickTo] = useState("Danmondi");
+  const [path, setPath] = useState("/");
   const signUp = (email, password) => {
     return auth.createUserWithEmailAndPassword(email, password);
   };
@@ -57,6 +59,12 @@ const AuthProvider = ({ children }) => {
     googleSignIn,
     fbSignIn,
     githubSignIn,
+    pickFrom,
+    setPickFrom,
+    pickTo,
+    setPickTo,
+    path,
+    setPath,
   };
   return (
     <AuthContext.Provider value={value}>

@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
   },
   container: {
     minHeight: "calc(100vh - 64px)",
+    padding: theme.spacing(5, 0),
   },
 }));
 const Home = () => {

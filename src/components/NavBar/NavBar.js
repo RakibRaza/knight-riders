@@ -15,6 +15,7 @@ import {
 import MenuIcon from "@material-ui/icons/Menu";
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { useAuthContext } from "../../context/AuthContext";
 
 const useStyles = makeStyles((theme) => ({
   navBar: {
@@ -34,7 +35,14 @@ const useStyles = makeStyles((theme) => ({
 const NavBar = () => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-
+  const { currentUserInfo, logOut } = useAuthContext();
+  const handleLogOut = async () => {
+    try {
+      await logOut();
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
   return (
     <>
       <AppBar className={classes.navBar} position="static" color="secondary">
@@ -46,20 +54,31 @@ const NavBar = () => {
             <Button component={Link} to="/">
               Home
             </Button>
-            <Button component={Link} to="/about">
-              Destination
-            </Button>
+            <Button>Destination</Button>
             <Button>Blog</Button>
             <Button>Contact</Button>
             <Box ml={6}>
-              <Button
-                component={NavLink}
-                to="/login"
-                color="primary"
-                variant="contained"
-              >
-                Login
-              </Button>
+              {currentUserInfo ? (
+                <Button
+                  onClick={handleLogOut}
+                  color="primary"
+                  variant="contained"
+                >
+                  Logout
+                </Button>
+              ) : (
+                <Button
+                  component={NavLink}
+                  to="/login"
+                  color="primary"
+                  variant="contained"
+                >
+                  Login
+                </Button>
+              )}
+            </Box>
+            <Box>
+              <Button>{currentUserInfo?.displayName}</Button>
             </Box>
           </Hidden>
           <Hidden mdUp>
@@ -91,6 +110,7 @@ const NavBar = () => {
               >
                 Login
               </Button>
+              <Button>{currentUserInfo?.displayName}</Button>
             </Drawer>
           </Hidden>
         </Toolbar>
