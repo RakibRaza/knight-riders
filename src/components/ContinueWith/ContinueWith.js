@@ -8,7 +8,7 @@ import { useAuthContext } from "../../context/AuthContext";
 import { useStyles } from "./ContinueWithStyle";
 
 const ContinueWith = ({ from, setError }) => {
-  const { googleSignIn, fbSignIn, githubSignIn } = useAuthContext();
+  const { googleSignIn, fbSignIn, githubSignIn, pageFrom } = useAuthContext();
   const classes = useStyles();
   const history = useHistory();
   const handleGoogleSignIn = async () => {

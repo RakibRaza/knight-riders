@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
     minHeight: "300px",
     borderRadius: theme.spacing(1.5),
     cursor: "pointer",
+    boxShadow: theme.shadows[5],
   },
   cardImg: {
     width: "70%",

@@ -168,7 +168,7 @@ const Signup = () => {
               </Typography>
             </form>
           </Paper>
-          <ContinueWith from={"/"} setError={setError} />
+          <ContinueWith from="/" setError={setError} />
         </Container>
       </Box>
     </Container>

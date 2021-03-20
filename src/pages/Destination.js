@@ -15,7 +15,7 @@ import {
   MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
 import React from "react";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { useHistory, useParams } from "react-router-dom";
 import GoogleMap from "../components/GoogleMap/GoogleMap";
 import NavBar from "../components/NavBar/NavBar";
@@ -29,13 +29,11 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(7),
   },
   form: {
-    background: "#EFEFEF",
+    background: "#fff",
+    boxShadow: theme.shadows[2],
     padding: theme.spacing(5, 2),
     borderRadius: theme.spacing(1.5),
-  },
-  input: {
-    "& .MuiInputBase-input": {
-      background: "#fff",
+    "& input": {
       fontWeight: "bold",
     },
   },
@@ -44,7 +42,7 @@ const Destination = () => {
   const classes = useStyles();
   const { id } = useParams();
   const history = useHistory();
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit, errors, control } = useForm();
   const { pickFrom, pickTo, setPickFrom, setPickTo } = useAuthContext();
   const onClick = (data) => {
     setPickFrom(data.from);
@@ -62,7 +60,6 @@ const Destination = () => {
               <Box mb={2}>
                 <Typography>Pick From</Typography>
                 <TextField
-                  className={classes.input}
                   name="from"
                   defaultValue={pickFrom}
                   variant="outlined"
@@ -77,7 +74,6 @@ const Destination = () => {
               <Box mb={2}>
                 <Typography>Pick To</Typography>
                 <TextField
-                  className={classes.input}
                   name="to"
                   defaultValue={pickTo}
                   variant="outlined"
@@ -93,10 +89,33 @@ const Destination = () => {
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <Grid container spacing={4}>
                   <Grid item xs={6}>
-                    <KeyboardDatePicker variant="inline" format="dd/MM" />
+                    <Controller
+                      render={(props) => (
+                        <KeyboardDatePicker
+                          variant="inline"
+                          format="dd/MM"
+                          value={props.value}
+                          onChange={props.onChange}
+                        />
+                      )}
+                      name="pick_date"
+                      defaultValue={new Date()}
+                      control={control}
+                    />
                   </Grid>
                   <Grid item xs={6}>
-                    <KeyboardTimePicker variant="inline" />
+                    <Controller
+                      render={(props) => (
+                        <KeyboardTimePicker
+                          variant="inline"
+                          value={props.value}
+                          onChange={props.onChange}
+                        />
+                      )}
+                      name="pick_time"
+                      defaultValue={new Date()}
+                      control={control}
+                    />
                   </Grid>
                 </Grid>
               </MuiPickersUtilsProvider>
@@ -105,10 +124,33 @@ const Destination = () => {
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                   <Grid container spacing={4}>
                     <Grid item xs={6}>
-                      <KeyboardDatePicker variant="inline" format="dd/MM" />
+                      <Controller
+                        render={(props) => (
+                          <KeyboardDatePicker
+                            variant="inline"
+                            format="dd/MM"
+                            value={props.value}
+                            onChange={props.onChange}
+                          />
+                        )}
+                        name="to_date"
+                        defaultValue={new Date()}
+                        control={control}
+                      />
                     </Grid>
                     <Grid item xs={6}>
-                      <KeyboardTimePicker variant="inline" />
+                      <Controller
+                        render={(props) => (
+                          <KeyboardTimePicker
+                            variant="inline"
+                            value={props.value}
+                            onChange={props.onChange}
+                          />
+                        )}
+                        name="to_time"
+                        defaultValue={new Date()}
+                        control={control}
+                      />
                     </Grid>
                   </Grid>
                 </MuiPickersUtilsProvider>

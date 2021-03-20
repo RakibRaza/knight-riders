@@ -23,21 +23,4 @@ function PrivateRoute({ children, ...rest }) {
     />
   );
 }
-// const PrivateRoute = ({ component: Component, ...rest }) => {
-//   const { currentUserInfo } = useAuthContext();
-
-//   return (
-//     <Route
-//       {...rest}
-//       render={(props) => {
-//         return currentUserInfo ? (
-//           <Component {...props} />
-//         ) : (
-//           <Redirect to="/login" />
-//         );
-//       }}
-//     ></Route>
-//   );
-// };
-
 export default PrivateRoute;

@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
   },
   form: {
     background: "#EFEFEF",
+    boxShadow: theme.shadows[4],
     padding: theme.spacing(5, 0),
     borderRadius: theme.spacing(1.5),
   },
